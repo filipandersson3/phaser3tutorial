@@ -42,6 +42,7 @@
     let bombs;
     let keyObj;
     let shootCooldown = 0;
+    let playerMiddle;
 
     function preload ()
     {
@@ -166,6 +167,18 @@
         } else {
             shootCooldown += 1;
         }
+        playerMiddle = player.x - game.config.width/2 + player.body.width;
+        if ((playerMiddle + 50) > 0) {
+            //en röra som gör att kameran följer spelaren om den går för långt åt vänster eller höger
+            //vet inte riktigt hur det fungerar för att jag testade mig fram tills det funkade
+            if ((playerMiddle - 50) > this.cameras.main.scrollX) { 
+                this.cameras.main.scrollX = playerMiddle - 50;
+            } else if ((playerMiddle + 50) < this.cameras.main.scrollX) {
+                this.cameras.main.scrollX = playerMiddle + 50;
+            }
+        }
+        
+        
         
     }
 
